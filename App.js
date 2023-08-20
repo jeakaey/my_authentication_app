@@ -25,6 +25,14 @@ const uri = 'https://www.example.com:8080/path/to/resource?param1=value1&param2=
     const actualtime= Math.floor((milliseconds/1000)/10).toString();
     const hash = (md5(encodeUtf8(actualtime + secret + pin))).toString();
     const otp = hash.substring(0,6);
+
+
+        checkTokenType = parsedUri.host;
+        this.secret = parsedUri.query;
+        this.issuer = parsedUri.path;
+
+ /* line 35 a 38 etait juste des test d'affichage */
+
   return (
     <SafeAreaView>
       <ScrollView
@@ -49,16 +57,13 @@ const uri = 'https://www.example.com:8080/path/to/resource?param1=value1&param2=
 function ScannerPage({navigation}){
 const [hasPermission, setHasPermission] = useState(false);
     const [scanned, setScanned] = useState(false);
-
     useEffect(() => {
       const getBarCodeScannerPermissions = async () => {
         const { status } = await BarCodeScanner.requestPermissionsAsync();
         setHasPermission(status === 'granted');
       };
-
       getBarCodeScannerPermissions();
     }, []);
-
     const handleBarCodeScanned = ({ type, data }) => {
       setScanned(true);
       navigation.navigate('TokenList');
@@ -81,7 +86,6 @@ return(
                    </TouchableOpacity>
         </View>
    );
-
 }
 
 const Stack = createNativeStackNavigator();
